@@ -11,8 +11,14 @@ import {
   extendTheme,
   VStack,
   Code,
+  Box,
+  Divider,
+  Icon,
+  Input,
+  ScrollView,
 } from "native-base";
 import NativeBaseIcon from "./components/NativeBaseIcon";
+import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 
 // Define the config
 const config = {
@@ -26,15 +32,23 @@ type MyThemeType = typeof theme;
 declare module "native-base" {
   interface ICustomTheme extends MyThemeType {}
 }
+
+
+function SearchBar() {
+  return <Input placeholder="Search People & Places" width="100%" borderRadius="4" py="3" px="1" fontSize="14" InputLeftElement={<Icon m="2" ml="3" size="6" color="gray.400" as={<MaterialIcons name="search" />} />} InputRightElement={<Icon m="2" mr="3" size="6" color="gray.400" as={<MaterialIcons name="mic" />} />} />
+}
+
+function Example() {
+  return <Center flex={1} px="2">
+      <SearchBar />
+    </Center>;
+}
+
+
 export default function App() {
   return (
     <NativeBaseProvider>
-      <Center
-        _dark={{ bg: "blueGray.900" }}
-        _light={{ bg: "blueGray.50" }}
-        px={4}
-        flex={1}
-      >
+
         <VStack space={5} alignItems="center">
           <NativeBaseIcon />
           <Heading size="lg">Welcome to NativeBase</Heading>
@@ -50,7 +64,6 @@ export default function App() {
           </Link>
           <ToggleDarkMode />
         </VStack>
-      </Center>
     </NativeBaseProvider>
   );
 }
