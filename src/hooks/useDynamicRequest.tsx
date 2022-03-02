@@ -1,5 +1,6 @@
 import { AxiosPromise } from "axios";
 import { useEffect, useState } from "react";
+import { useDebounce } from "./useDebounce";
 
 export const useDynamicRequest = (
   request: (params: string) => AxiosPromise,
@@ -11,11 +12,23 @@ export const useDynamicRequest = (
   const [error, setError] = useState(false);
   const [retry, setRetry] = useState(false);
 
+  const resetStates = () => {
+    setLoading(false);
+    setData(undefined);
+    setSuccess(false);
+    setError(false);
+  };
+
   const tryAgain = () => {
     setRetry((prev) => !prev);
   };
 
   useEffect(() => {
+    console.log("aksdopjaisdhji");
+  }, [params]);
+
+  useEffect(() => {
+    resetStates();
     async function fetchData() {
       try {
         setLoading(true);
@@ -32,13 +45,16 @@ export const useDynamicRequest = (
         setLoading(false);
       }
     }
-    fetchData();
+
+    if (params !== "") {
+      useDebounce(fetchData);
+    }
   }, [retry]);
 
   return {
     loading,
     data,
-    success,
+    success: data !== undefined,
     error,
     tryAgain,
   };

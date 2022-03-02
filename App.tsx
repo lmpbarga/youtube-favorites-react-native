@@ -5,6 +5,7 @@ import React from "react";
 import { Home } from "./src/components/ page/home/home";
 import { Search } from "./src/components/ page/search/search";
 import { Routes } from "./src/constants/routes";
+import { searchStore } from "./src/store/search";
 
 const Stack = createNativeStackNavigator();
 
@@ -14,7 +15,10 @@ const App = () => {
       <View backgroundColor={"black"} display="flex" flex={1}>
         <NavigationContainer>
           <Stack.Navigator screenOptions={{ headerShown: false }}>
-            <Stack.Screen name={Routes.HOME} component={Home} />
+            <Stack.Screen
+              name={Routes.HOME}
+              component={() => <Home search={searchStore} />}
+            />
             <Stack.Screen name={Routes.SEARCH} component={Search} />
           </Stack.Navigator>
         </NavigationContainer>
