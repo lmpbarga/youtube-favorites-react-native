@@ -64,7 +64,6 @@ export const Search = () => {
         marginX={2}
         value={value}
         onChangeText={handleChange}
-        onEndEditing={() => console.log("akosdjiopajsidj")}
       />
       <View marginX={3}>
         {!valueIsEmpty && loading && <Text>LOADING</Text>}

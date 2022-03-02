@@ -24,10 +24,6 @@ export const useDynamicRequest = (
   };
 
   useEffect(() => {
-    console.log("aksdopjaisdhji");
-  }, [params]);
-
-  useEffect(() => {
     resetStates();
     async function fetchData() {
       try {
